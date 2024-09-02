@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Websocket Chat</title>
+</head>
+<body>
+    <h1>Websocket Chat</h1>
+    <h2>Chat with item ID: <span id="ws-id"></span></h2>
+    <form action="" onsubmit="sendMessage(event)">
+        <hr>
+        <label>Video Name: <input type="text" id="videoId" autocomplete="off" value="converted.mp4"/></label>
+        <button type="submit">Send</button>
+    </form>
+    <ul id="messages"></ul>
+    <script src="{{ url_for('static', path='js/scripts.js') }}"></script>
+</body>
+</html>

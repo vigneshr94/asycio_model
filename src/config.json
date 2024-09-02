@@ -1,0 +1,11 @@
+{
+    "device": {"camera_1": "converted.mp4", "camera_2": "converted2.mp4"},
+    "quit_key": "q",
+    "fps": 20,
+    "rec_key": "r",
+    "stop_key": "s",
+    "pause_key": "p",
+    "video_format": "mp4",
+    "fourcc_codec": "mp4v",
+    "resolution": "640x480"
+}
