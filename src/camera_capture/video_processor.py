@@ -10,6 +10,8 @@ class VideoProcessor:
         self.capture = source['capture_obj']
         self.cam_name = source['cam_name']
         self.cam_queue = source['cam_queue']
+        self.ann_queue = source['annotation_streaming_queue']
+        self.cap_stream_queue = source['cap_stream_queue']
         self.config = config
         self.camera_capture = Capture(source)
         self.asyncio_sleep = 0.01
@@ -20,16 +22,17 @@ class VideoProcessor:
         while True:
             frame = await asyncio.create_task(self.camera_capture.start_capture(self.capture), name=self.cam_name)
             await self.cam_queue.put([self.cam_name, frame, True])
+            await self.cap_stream_queue.put([self.cam_name, frame, True])
             await asyncio.sleep(self.asyncio_sleep)
 
     # Primary Consumer
-    async def start_annotation(self, cam_loop, cam_queue, ann_queue) -> None:
+    async def start_annotation(self) -> None:
         while True:
-            if cam_queue.qsize():
+            if self.cam_queue.qsize():
                 try:
                     print("Processing frame")
                     to_har_model = asyncio.create_task(
-                        self.har_model.process_frame(cam_queue=cam_queue, ann_queue=ann_queue),
+                        self.har_model.process_frame(cam_queue=self.cam_queue, ann_queue=self.ann_queue),
                         name=f"{self.cam_name}_HAR",
                     )
                     await to_har_model

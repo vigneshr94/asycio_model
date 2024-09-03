@@ -27,22 +27,29 @@ class Manager:
                 source["cam_name"] = camera_object["cam_name"]
                 source["capture_obj"] = camera_object["capture_obj"]
         cam_queue = asyncio.LifoQueue(maxsize=100)
+        cap_stream_queue = asyncio.LifoQueue(maxsize=100)
         annotation_streaming_queue = asyncio.LifoQueue(maxsize=100)
         database_queue = asyncio.LifoQueue(maxsize=100)
         source['cam_queue'] = cam_queue
+        source['cap_stream_queue'] = cap_stream_queue
         source['annotation_streaming_queue'] = annotation_streaming_queue
         source['database_queue'] = database_queue
         return source
 
     async def start(self, source):
         cam_queue = source['cam_queue']
+        cap_stream_queue = source['cap_stream_queue']
         ann_queue = source['annotation_streaming_queue']
         task_loop = source['loop']
         video_processor = VideoProcessor(source, self.config)
         har_streamer = Streamer(source)
+        cam_streamer = Streamer(source)
         capture_task = asyncio.create_task(video_processor.start_camera(), name="capture_task")
+        cam_streaming_task = asyncio.create_task(
+            cam_streamer.start_streaming(cap_stream_queue), name="cam_streaming_task"
+        )
         annotation_task = asyncio.create_task(
-            video_processor.start_annotation(task_loop, cam_queue, ann_queue),
+            video_processor.start_annotation(),
             name="annotation_task",
         )
         try:
@@ -51,10 +58,9 @@ class Manager:
             )
         except Exception as e:
             print(f"Error: {e}")
+        tasks = [capture_task, cam_streaming_task, annotation_task, annotation_streaming_task]
         await asyncio.gather(
-            capture_task,
-            annotation_task,
-            annotation_streaming_task,
+            *tasks,
             return_exceptions=True
             )
 
@@ -92,5 +98,8 @@ if __name__ == "__main__":
         config = json.load(file)
     manager = Manager(config)
     source1 = manager.get_loop_attributes("camera_1")
-    sources = [source1]
+    source2 = manager.get_loop_attributes("camera_2")
+    source3 = manager.get_loop_attributes("camera_3")
+    source4 = manager.get_loop_attributes("camera_4")
+    sources = [source1, source2, source3, source4]
     asyncio.run(main(manager, sources))

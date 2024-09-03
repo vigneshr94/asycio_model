@@ -1,5 +1,5 @@
 {
-    "device": {"camera_1": "converted.mp4", "camera_2": "converted2.mp4"},
+    "device": {"camera_1": "converted.mp4", "camera_2": "converted2.mp4", "camera_3": "converted3.mp4", "camera_4": "converted4.mp4"},
     "quit_key": "q",
     "fps": 20,
     "rec_key": "r",

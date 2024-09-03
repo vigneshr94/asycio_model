@@ -24,4 +24,4 @@ class HARModel:
             frame[0] = f"annotated_{frame[0]}"
             ann_queue.put_nowait(frame)
             print("From annotation model ->", ann_queue.qsize())
-            await asyncio.sleep(self.asyncio_sleep)
+            # await asyncio.sleep(self.asyncio_sleep)

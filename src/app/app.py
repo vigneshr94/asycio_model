@@ -1,4 +1,6 @@
+import asyncio
 import json
+import time
 from typing import Annotated, List
 
 from fastapi import (Cookie, FastAPI, Query, Request, WebSocket,
@@ -58,8 +60,11 @@ async def websocket_endpoint(
     try:
         while True:
             data = await websocket.receive_text()
-            data = json.loads(data)
-            await manager.send_personal_message(f"You wrote: {data['videoId']}", websocket)
+            if data:
+                await manager.send_personal_message(f"You wrote: {data}", websocket)
+            for _ in range(20):
+                await manager.broadcast(f"Hi, I'm from server {time.strftime('%X')}")
+                await asyncio.sleep(1)
     except WebSocketDisconnect:
         manager.disconnect(websocket)
         await manager.broadcast(f"Client #{client_id} left the chat")
