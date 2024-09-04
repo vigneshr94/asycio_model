@@ -16,6 +16,10 @@ run: install.stamp
 	@echo "Running the $(MOD)"
 	@poetry run python3 $(MOD)
 
+install:
+	@echo "Running poetry install"
+	@poetry install
+
 install.stamp: pyproject.toml poetry.lock
 	@echo "Running poetry install"
 	@poetry lock --no-update
