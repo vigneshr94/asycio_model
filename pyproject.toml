@@ -26,6 +26,10 @@ aiortc = "^1.9.0"
 [tool.poetry.group.dev.dependencies]
 bpython = "^0.24"
 
+
+[tool.poetry.group.test.dependencies]
+pytest = "^8.3.2"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
