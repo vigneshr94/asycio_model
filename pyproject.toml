@@ -25,6 +25,7 @@ aiortc = "^1.9.0"
 
 [tool.poetry.group.dev.dependencies]
 bpython = "^0.24"
+jupyter = "^1.1.1"
 
 
 [tool.poetry.group.test.dependencies]
