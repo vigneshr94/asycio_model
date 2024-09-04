@@ -18,6 +18,7 @@ run: install.stamp
 
 install:
 	@echo "Running poetry install"
+	@poetry lock --no-update
 	@poetry install
 
 install.stamp: pyproject.toml poetry.lock
