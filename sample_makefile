@@ -1,0 +1,52 @@
+# Define the application directory and configuration file
+APP_DIR := src
+CONFIG_FILE := src/config.json
+
+# Define the main entry point for the application
+MAIN_SCRIPT := main.py
+
+# Create the virtual environment and install dependencies using Poetry
+.PHONY: install
+install:
+	poetry install
+
+# Run the application using Poetry
+.PHONY: run
+run: install
+	poetry run python $(APP_DIR)/$(MAIN_SCRIPT)
+
+# Clean up the environment (remove virtual environment and cached files)
+.PHONY: clean
+clean:
+	poetry env remove --all
+	find . -type f -name '*.pyc' -delete
+	find . -type d -name '__pycache__' -delete
+
+# Lint the code using flake8
+.PHONY: lint
+lint:
+	poetry run flake8 $(APP_DIR)
+
+# Format the code using black
+.PHONY: format
+format:
+	poetry run black $(APP_DIR)
+
+# Run tests (assuming you have tests in the tests/ directory)
+.PHONY: test
+test:
+	poetry run pytest tests/
+
+# Deploy the application
+.PHONY: deploy
+deploy: install
+	# Add your deployment steps here
+	# For example, you might copy files to a server or use a deployment service
+	echo "Deploying the application..."
+
+# Restart the application (useful if running with a process manager like systemd or PM2)
+.PHONY: restart
+restart:
+	# Add the command to restart your application or service
+	# For example, you might run: systemctl restart myservice
+	echo "Restarting the application..."
