@@ -26,10 +26,10 @@ class Manager:
             if camera_object["cam_name"] == camera:
                 source["cam_name"] = camera_object["cam_name"]
                 source["capture_obj"] = camera_object["capture_obj"]
-        cam_queue = asyncio.LifoQueue(maxsize=100)
-        cap_stream_queue = asyncio.LifoQueue(maxsize=100)
-        annotation_streaming_queue = asyncio.LifoQueue(maxsize=100)
-        database_queue = asyncio.LifoQueue(maxsize=100)
+        cam_queue = asyncio.LifoQueue(maxsize=100)      # use FIFO queue
+        cap_stream_queue = asyncio.LifoQueue(maxsize=100)  # use FIFO queue
+        annotation_streaming_queue = asyncio.LifoQueue(maxsize=100)  # use FIFO queue
+        database_queue = asyncio.LifoQueue(maxsize=100)  # use FIFO queue
         source['cam_queue'] = cam_queue
         source['cap_stream_queue'] = cap_stream_queue
         source['annotation_streaming_queue'] = annotation_streaming_queue
