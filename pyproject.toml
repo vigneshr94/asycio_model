@@ -2,7 +2,7 @@
 name = "asyncio-model"
 version = "0.1.0"
 description = ""
-authors = ["Your Name <you@example.com>"]
+authors = ["R Vigneswar <rvigneswar@ftcsolar.com>"]
 readme = "README.md"
 packages = [
     {include = "app", from = "src"}, 
@@ -25,11 +25,41 @@ aiortc = "^1.9.0"
 
 [tool.poetry.group.dev.dependencies]
 bpython = "^0.24"
-jupyter = "^1.1.1"
+black = "^24.8.0"
+flake8-pyproject = "^1.2.3"
 
 
 [tool.poetry.group.test.dependencies]
 pytest = "^8.3.2"
+
+
+[tool.black]
+line-length = 120
+target-version = ["py311"]
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.egg
+    | \.git
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+)/
+'''
+
+[tool.flake8]
+ignore = ['E231', 'E241']
+per-file-ignores = [
+    '__init__.py:F401',
+]
+max-line-length = 120
+count = true
+
 
 [build-system]
 requires = ["poetry-core"]
