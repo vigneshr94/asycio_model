@@ -6,8 +6,8 @@ import cv2 as cv
 
 class Capture:
     def __init__(self, sources: dict) -> None:
-        self.cap = sources['capture_obj']
-        self.cam_name = sources['cam_name']
+        self.cap = sources["capture_obj"]
+        self.cam_name = sources["cam_name"]
 
     async def start_capture(self, capture_obj: cv.VideoCapture):
         capture_obj.grab()
@@ -28,7 +28,7 @@ if __name__ == "__main__":
     with open(f"../{config_file}") as file:
         config = json.load(file)
 
-    CAM_DEVICE = config['device']
+    CAM_DEVICE = config["device"]
     WIN_TITLE = pathlib.Path(__file__).stem
     QUIT_KEY = ord(config["quit_key"])
     capture = Capture(CAM_DEVICE)

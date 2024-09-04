@@ -1,9 +1,11 @@
 import asyncio
 import time
 
+
 async def say_after(delay, what):
     await asyncio.sleep(delay)
     print(what)
+
 
 async def main():
     task1 = asyncio.create_task(say_after(1, "hello"))
@@ -14,5 +16,6 @@ async def main():
     await task2
 
     print(f"{time.strftime('%X')}")
+
 
 asyncio.run(main())

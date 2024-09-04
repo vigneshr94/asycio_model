@@ -3,8 +3,16 @@ import json
 import time
 from typing import Annotated, List
 
-from fastapi import (Cookie, FastAPI, Query, Request, WebSocket,
-                     WebSocketDisconnect, WebSocketException, status)
+from fastapi import (
+    Cookie,
+    FastAPI,
+    Query,
+    Request,
+    WebSocket,
+    WebSocketDisconnect,
+    WebSocketException,
+    status,
+)
 from fastapi.templating import Jinja2Templates
 from starlette.staticfiles import StaticFiles
 

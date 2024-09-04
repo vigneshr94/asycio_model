@@ -17,7 +17,7 @@ def run_inference(frame):
             position,
             cv.FONT_HERSHEY_SIMPLEX,
             1,
-            (255, 255, 255),
+            (0, 0, 255),
             2,
             cv.LINE_AA,
         )

@@ -7,11 +7,11 @@ from camera_capture.video_capture import Capture
 
 class VideoProcessor:
     def __init__(self, source, config):
-        self.capture = source['capture_obj']
-        self.cam_name = source['cam_name']
-        self.cam_queue = source['cam_queue']
-        self.ann_queue = source['annotation_streaming_queue']
-        self.cap_stream_queue = source['cap_stream_queue']
+        self.capture = source["capture_obj"]
+        self.cam_name = source["cam_name"]
+        self.cam_queue = source["cam_queue"]
+        self.ann_queue = source["annotation_streaming_queue"]
+        self.cap_stream_queue = source["cap_stream_queue"]
         self.config = config
         self.camera_capture = Capture(source)
         self.asyncio_sleep = 0.01
@@ -53,4 +53,4 @@ class VideoProcessor:
 if __name__ == "__main__":
     with open("config.json") as file:
         config = json.load(file)
-    video_processor = VideoProcessor(config['device'], "testSite", "A1B2R32", config)
+    video_processor = VideoProcessor(config["device"], "testSite", "A1B2R32", config)
